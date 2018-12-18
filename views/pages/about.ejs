@@ -1,0 +1,34 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+
+<% include ../partials/header %>
+<section>
+<div class="container">
+    <div class="row">
+		<div class="col-lg-6">
+			<div class="highlighted">
+                <h1 class="mt-5 white-p">About BMAN.GG </h1>
+                <p class="white-p">This website is a fan made ratings aggregator for the game <a href="https://store.steampowered.com/app/346120/Boring_Man__Online_Tactical_Stickman_Combat/">Boring Man: Online Tactical Stickman Combat (BMAN:OTSC)</a>. There is soon going to be a rewrite for this cult classic game. If you would like to follow development news, follow <a href="https://twitter.com/spasmangames">Spasman's twitter</a></p> 
+                <p class="white-p">Ratings are calculated according to <a href="https://www.wikiwand.com/en/Elo_rating_system">Elo rating system</a>. These are based off Spasman's Team Deathmatch kills and deaths</p>
+                <p class="white-p">Whenever you are killed or get a kill, both you and your opponent's rating will adjust. The adjustment level will depend on your relative ratings before the kill occurred. For example, if you are highly rated prior to the kill, and you kill a low rated player, your gain in rating will be small compared to you killing a higher rated player. That being said, the maximum that a rating can change based off a single interaction is 32</p>
+                <p class="white-p">If you would like to help me with my website, (I would love a spanish/english speaker, coder, or graphic designer) please do not hesitate to email me at coyoteandbird@gmail.com</p>
+                <p class="white-p">The website is open source and is located <a href="https://github.com/coyote963/bmangg">here</a>, if you would like to follow updates follow my <a href="http://tumblr.bman.gg/rss">tumblr RSS feed </a></p>
+            </div>
+		</div>
+		<div>
+			<a href="/view/"><img src="/img/boringman.png" class="mt-5 ml-5"></a>
+		</div>
+	</div>
+</div>
+</section>
+
+
+</body>
+</html>

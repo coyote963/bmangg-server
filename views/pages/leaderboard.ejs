@@ -1,0 +1,36 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+
+<% include ../partials/header %>
+<section>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <table class = "table table-dark">
+            <th>Name</th>
+            <th>Elo<sup><a href = "/about/">?</a></sup></th> 
+            <% for(var i=0; i < players.length; i++) { %>
+                <tr>
+                    
+                <td><a href = "https://steamcommunity.com/profiles/<%= players[i]._id %>">
+                    <%= i+1 %>. <%= players[i].name %>
+                </a></td>
+                
+                <td><a href = "/view/<%= players[i]._id %>"><%= players[i].elo %></a></td>
+                </tr>
+            <% } %>
+            </table>
+        </div>
+        </div>
+	</div>
+</div>
+</section>
+</body>
+</html>
