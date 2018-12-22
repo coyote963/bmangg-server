@@ -40,7 +40,6 @@ router.get('/:id', function (req,res) {
 
 router.get('/page/:page', function (req,res) {
 	Player.find({})
-	
 	.limit(perPage)
 	.skip(perPage * (req.params.page - 1))
 	.sort( {elo : -1})
@@ -108,7 +107,23 @@ router.get('/search/:name', function(req, res)
 		.exec(function(err, results)
 		{
 			if (err) return res.status(500).send("There was a problem searching for the player");
-			res.status(200).send(results);
+			var rankedresults = []
+			for (var i = 0 ; i < results.length; i++) {
+				Player.countDocuments({ elo : { $gte : results[i].elo}}, function (err, count) {
+					if (err) return res.status(500).send("There was a problem getting player's rank");
+					console.log(i)
+					console.log(results[i])
+					console.log(results[0]);
+					rankedresults.push(
+						{
+							rank: count+1,
+							player: results[i]
+						}
+					)
+				})
+			}
+			
+			res.status(200).send(rankedresults);
 		});
 });
 module.exports = router;
