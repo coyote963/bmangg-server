@@ -38,6 +38,20 @@ router.get('/:id', function (req,res) {
 	});
 });
 
+router.get('/rank/:id', function (req, res) {
+	Player.findById(req.params.id, function (err, user) {
+		if (err) return res.status(500).send("There was a problem finding the player.");
+		if (!user) return res.status(404).send("No user found with that ID");	
+		Player.countDocuments( { elo: { $gte: user.elo } }, function (err, count) {
+			if (err) return res.status(500).send("There was an error getting the ranking.");
+			res.status(200).send({
+				user: user,
+				rank: count
+			})
+		})
+	})
+})
+
 router.get('/page/:page', function (req,res) {
 	Player.find({})
 	.limit(perPage)
@@ -101,29 +115,4 @@ router.put('/rating/:newrating', function(req,res) {
 	)
 });
 
-router.get('/search/:name', function(req, res)
-{
-	Player.find( { $text: { $search: req.params.name, $language: "none" }})
-		.exec(function(err, results)
-		{
-			if (err) return res.status(500).send("There was a problem searching for the player");
-			var rankedresults = []
-			for (var i = 0 ; i < results.length; i++) {
-				Player.countDocuments({ elo : { $gte : results[i].elo}}, function (err, count) {
-					if (err) return res.status(500).send("There was a problem getting player's rank");
-					console.log(i)
-					console.log(results[i])
-					console.log(results[0]);
-					rankedresults.push(
-						{
-							rank: count+1,
-							player: results[i]
-						}
-					)
-				})
-			}
-			
-			res.status(200).send(rankedresults);
-		});
-});
 module.exports = router;
