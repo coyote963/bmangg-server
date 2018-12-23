@@ -52,6 +52,15 @@ router.get('/rank/:id', function (req, res) {
 	})
 })
 
+router.get('/search/:search', function (req, res) {
+	Player.find({name:{$regex:req.params.search, $options:"$i"}})
+	.limit(20)
+	.exec(function(err, players) {
+		if (err) res.status(500).send("Error encountered when getting the players");
+		return res.status(200).send(players)
+	})
+})
+
 router.get('/page/:page', function (req,res) {
 	Player.find({})
 	.limit(perPage)
@@ -114,5 +123,7 @@ router.put('/rating/:newrating', function(req,res) {
 		}
 	)
 });
+
+
 
 module.exports = router;
