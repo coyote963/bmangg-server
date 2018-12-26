@@ -34,6 +34,9 @@ app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about', (req, res)=> res.render("pages/about"))
-
+app.get('/wakemydyno.txt', function (req, res) {
+    res.type('text/plain');
+    res.send("This is a dyno waker");
+});
 
 module.exports = app;
