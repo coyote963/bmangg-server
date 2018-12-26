@@ -32,7 +32,7 @@ router.get('/',function(req,res) {
 
 router.get('/:id', function (req,res) {
 	Player.findById(req.params.id, function (err, user) {
-		if (err) return res.status(500).send("There was a problem finding the player.");
+		if (err) return res.status(500).send(err);
 		if (!user) return res.status(404).send("No User found.");
 		res.status(200).send(user);
 	});
@@ -95,7 +95,6 @@ router.get('/page/:page', function (req,res) {
 		})
 	});
 });
-
 
 router.put('/:id', function(req,res) {
 	Player.findByIdAndUpdate(req.params.id, req.body, {new: true, upsert: true, setDefaultsOnInsert: true}, function(err, user) {

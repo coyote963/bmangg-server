@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
-var KillSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const KillSchema = new mongoose.Schema(
 {
-	victim: String,
+	victim: { type: String, ref: 'Player' },
 	victimRating: Number,
-	killer: String,
+	killer: { type: String, ref: 'Player' },
 	killerRating: Number,
 	timeStamp: { type: Date, default: Date.now },
 	weapon: String
