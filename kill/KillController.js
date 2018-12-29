@@ -104,7 +104,7 @@ router.get('/:id/limit/:total',function(req, res){
 			{killer: req.params.id}
 		]
 	})
-	.sort({timeStamp : 1})
+	.sort({timeStamp : -1})
 	.limit(parseInt(req.params.total))
 	.exec(function (err, kills) {
 		if (err) return res.status(500).send(err);
