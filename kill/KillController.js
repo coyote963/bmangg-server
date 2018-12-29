@@ -58,11 +58,11 @@ router.get('/:id/:page', function(req, res){
 			{killer: req.params.id}
 		]
 	})
+	.sort({timeStamp: -1})
 	.populate('killer')
 	.populate('victim')
 	.limit(perPage)
 	.skip(perPage * (req.params.page - 1))
-	.sort({timeStamp: -1})
 	.exec(function(err,kills) {
 		if (err) return res.status(500).send("Error occurred getting the matchups")
 		Kill.countDocuments({$or: [
@@ -95,6 +95,20 @@ router.get('/:id/:page', function(req, res){
 				data: kills
 			});
 		})
+	})
+});
+router.get('/:id/limit/:total',function(req, res){
+	Kill.find({
+		$or: [
+			{victim: req.params.id},
+			{killer: req.params.id}
+		]
+	})
+	.sort({timeStamp : 1})
+	.limit(parseInt(req.params.total))
+	.exec(function (err, kills) {
+		if (err) return res.status(500).send(err);
+		res.status(200).send(kills);
 	})
 });
 module.exports = router;
