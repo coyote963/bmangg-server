@@ -25,6 +25,29 @@ router.get('/page/:page', function(req,res){
 	})
 });
 
+router.get('/weapons/:id', function(req, res){
+	Kill
+	.aggregate([
+		{
+			$match: {
+				killer: req.params.id
+			}
+		}, {
+			$group : {
+				_id: '$weapon',
+				count : {
+					$sum: 1
+				}
+			} 
+		}
+	])
+	.sort({'count' : -1})
+	.limit(5)
+	.exec(function(err, data) {
+		if (err) return res.status(500).send("There was an error getting the weapons list");
+		res.status(200).send(data);
+	})
+})
 
 router.post('/', function(req,res){
 	Kill.create({
@@ -111,4 +134,6 @@ router.get('/:id/limit/:total',function(req, res){
 		res.status(200).send(kills);
 	})
 });
+
+
 module.exports = router;
