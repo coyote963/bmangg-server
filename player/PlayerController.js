@@ -30,6 +30,17 @@ router.get('/',function(req,res) {
 	});
 });
 
+router.get('/ratings/',function(req,res) {
+	Player.find({},['elo'],{
+		sort: {
+			elo : 1
+		}
+	}, function(err, players) {
+		if (err) return res.status(500).send("There was a problem finding the players.");
+		res.status(200).send(players);
+	});
+});
+
 router.get('/:id', function (req,res) {
 	Player.findById(req.params.id, function (err, user) {
 		if (err) return res.status(500).send(err);

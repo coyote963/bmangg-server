@@ -24,7 +24,26 @@ router.get('/page/:page', function(req,res){
 		res.status(200).send(kills);
 	})
 });
-
+router.get('/weapons', function(req, res) {
+	Kill
+	.aggregate([
+		{
+			$group: {
+				_id: '$weapon',
+				count : {
+					$sum: 1
+				}
+			}
+		}
+	])
+	.sort({ count : -1})
+	.limit(50)
+	.exec(function(err, data) {
+		if (err) return res.status(500).send("There was an error getting the weapons list");
+		res.status(200).send(data);
+	})
+	
+})
 router.get('/weapons/:id', function(req, res){
 	Kill
 	.aggregate([
