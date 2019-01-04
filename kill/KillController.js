@@ -28,6 +28,9 @@ router.get('/weapons', function(req, res) {
 	Kill
 	.aggregate([
 		{
+			$limit: 1000
+		},
+		{
 			$group: {
 				_id: '$weapon',
 				count : {
@@ -37,7 +40,6 @@ router.get('/weapons', function(req, res) {
 		}
 	])
 	.sort({ count : -1})
-	.limit(50)
 	.exec(function(err, data) {
 		if (err) return res.status(500).send("There was an error getting the weapons list");
 		res.status(200).send(data);
