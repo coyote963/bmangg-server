@@ -25,7 +25,7 @@ router.get('/',function(req,res) {
 			elo : -1
 		}
 	}, function(err, players) {
-		if (err) return res.status(500).send("There was a problem finding the players.");
+		if (err) return res.status(500).send(err);
 		res.status(200).send(players);
 	});
 });
